@@ -72,14 +72,29 @@
       this.getHomeGoods('pop');
       this.getHomeGoods('new');
       this.getHomeGoods('sell');
-
-      this.$bus.$on('itemImageLoad',()=>{
-        this.$refs.scroll.refresh();
-      //  重新计算滚动的高度
-      })
     },
 
+    mounted() {
+      //保证模板必须挂载上去了
+      const refresh = this.debounce(this.$refs.scroll.refresh,50);
+      this.$bus.$on('itemImageLoad',()=>{
+        refresh();
+        //  重新计算滚动的高度
+      })
+    },
     methods:{
+      //防抖动 防止刷新次数频率过多
+      debounce(func,delay){
+        let timer = null;
+        return function (...args) {
+          //此时this指向为空，不再为window
+          if(timer) clearTimeout(timer);
+          timer = setTimeout(()=>{
+            func.apply(this,args);
+          },delay)
+        }
+      },
+
       //事件监听相关方法
       tabClick(index){
         switch (index) {

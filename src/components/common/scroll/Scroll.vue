@@ -43,14 +43,16 @@
       })
     },
     methods:{
+      //做一层保证 保证scroll必须有值
       scrollTo(x,y,time=500){
-        this.scroll.scrollTo(x,y,time);
+        this.scroll && this.scroll.scrollTo() && this.scroll.scrollTo(x,y,time);
       },
       finishPullUp(){
-        this.scroll.finishPullUp();
+        this.scroll && this.scroll.finishPullUp();
       },
       refresh(){
-        this.scroll.refresh()
+        console.log('...');
+        this.scroll && this.scroll.refresh()
       }
     }
   }

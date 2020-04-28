@@ -7,6 +7,13 @@ const Cart = () => import('../views/cart/Cart')
 const Profile = () => import('../views/profile/Profile')
 Vue.use(VueRouter)
 
+
+// 解决两次访问相同路由地址报错
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const  routes = [
   {
     path: '',

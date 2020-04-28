@@ -3,7 +3,8 @@
     <Swiper>
       <SwiperItem v-for="item in banners">
         <a :href="item.link">
-          <img :src="item.image" alt="">
+          <img :src="item.image" @load="imageLoad">
+          <!--          加载完成一次 触发事件一次-->
         </a>
       </SwiperItem>
     </Swiper>
@@ -24,6 +25,20 @@
         default(){
           return [];
         }
+      }
+    },
+    data(){
+      return {
+        isLoad:false
+      }
+    },
+    methods:{
+      imageLoad(){
+        if(!this.isLoad){
+          this.$emit('swiperImageLoad')
+          this.isLoad = true
+        }
+
       }
     }
   }

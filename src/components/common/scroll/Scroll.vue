@@ -34,27 +34,35 @@
         pullUpLoad: this.pullUpLoad
       })
 
-      this.scroll.on('scroll',position=>{
-        this.$emit('scroll',position);
-      })
+      if(this.probeType === 2 || this.probeType === 3){
+        this.scroll.on('scroll',position=>{
+          this.$emit('scroll',position);
+        })
+      }
 
-      this.scroll.on('pullingUp',()=>{
-        this.$emit('pullingUp');
-      })
+      if(this.pullUpLoad){
+        this.scroll.on('pullingUp',()=>{
+          //监听到滚动到底部
+          this.$emit('pullingUp');
+        })
+      }
+
     },
     methods:{
       //做一层保证 保证scroll必须有值
       scrollTo(x,y,time=500){
-        this.scroll && this.scroll.scrollTo() && this.scroll.scrollTo(x,y,time);
+        this.scroll && this.scroll.scrollTo(x,y,time);
       },
       finishPullUp(){
         this.scroll && this.scroll.finishPullUp();
       },
       refresh(){
-        console.log('...');
         this.scroll && this.scroll.refresh()
+      },
+      getScrollY(){
+        return this.scroll ? this.scroll.y : 0;
       }
-    }
+    },
   }
 </script>
 

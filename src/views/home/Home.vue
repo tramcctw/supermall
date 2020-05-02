@@ -81,7 +81,6 @@
     },
     deactivated() {
       this.saveY = this.$refs.scroll.getScrollY()
-      console.log(this.saveY);
     },
     created() {
       this.getHomeMulidata();

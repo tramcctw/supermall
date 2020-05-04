@@ -1,4 +1,5 @@
 <template>
+<!--  使用时必须有固定的高度-->
   <div class="wrapper" ref="wrapper">
     <div class="content">
       <slot></slot>

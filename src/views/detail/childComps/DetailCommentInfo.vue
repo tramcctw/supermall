@@ -41,8 +41,15 @@
     },
     filters: {
 		  showDate: function (value) {
+		    // console.log(value);
+        //value 服务器返回的是时间戳(单位秒)
+        //转换 需要将时间戳转换成对应的时间格式
+        //1 先转换成date对象 传进去的必须是毫秒
+        //2 将data格式化 转成对应的字符串
         let date = new Date(value*1000);
+        // 转换成date对象
         return formatDate(date, 'yyyy-MM-dd')
+        //传入格式化字符串将其转换
       }
     }
 	}

@@ -9,6 +9,7 @@
       @imageLoad="imageLoad"/>
       <detail-param-info :param-info="paramInfo"/>
       <detail-comment-info :comment-info="commentInfo"/>
+      <goods-list :goods="recommends"/>
     </scroll>
   </div>
 </template>
@@ -22,8 +23,10 @@
   import DetailGoodsInfo from "./childComps/DetailGoodsInfo";
   import DetailParamInfo from "./childComps/DetailParamInfo";
   import DetailCommentInfo from "./childComps/DetailCommentInfo";
+  import GoodsList from "components/content/goods/GoodsList";
 
-  import {getDetail, Goods,Shop,GoodsParam} from "network/detail";
+  import {getDetail, Goods,Shop,GoodsParam,getRecommend} from "network/detail";
+  import {debounce} from "common/utils";
 
   export default {
     name: "Detail",
@@ -35,6 +38,7 @@
       DetailGoodsInfo,
       DetailParamInfo,
       DetailCommentInfo,
+      GoodsList,
       Scroll,
     },
     data(){
@@ -46,11 +50,12 @@
         detailInfo:{},
         paramInfo:{},
         commentInfo: {},
+        recommends:[]
       }
     },
     created() {
       this.iid = this.$route.params.id
-
+      //2请求详情数据
       getDetail(this.iid).then(res=>{
         //console.log(res);
         const data = res.result
@@ -65,9 +70,20 @@
         //5 获取参数信息
         this.paramInfo = new GoodsParam(data.itemParams.info,data.itemParams.rule)
         //6 保存评论信息
-        if (data.rate.list) { //有些商品没有评论信息
+        if (data.rate.cRate !== 0) { //有些商品没有评论信息
           this.commentInfo = data.rate.list[0];
         }
+      })
+      // 3 请求推荐数据
+      getRecommend().then(res=>{
+        this.recommends = res.data.list
+      })
+    },
+    mounted() {
+      const refresh = debounce(this.$refs.scroll.refresh,50);
+      this.$bus.$on('detailItemImageLoad',()=>{
+        refresh();
+        //  重新计算滚动的高度
       })
     },
     methods:{

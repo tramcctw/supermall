@@ -74,7 +74,6 @@
         return this.goods[this.currentType].list
       }
     },
-
     activated() {
       this.$refs.scroll.scrollTo(0,this.saveY,0)
       this.$refs.scroll.refresh();
@@ -93,7 +92,7 @@
     mounted() {
       //保证模板必须挂载上去了
       const refresh = debounce(this.$refs.scroll.refresh,50);
-      this.$bus.$on('itemImageLoad',()=>{
+      this.$bus.$on('homeItemImageLoad',()=>{
         refresh();
         //  重新计算滚动的高度
       })

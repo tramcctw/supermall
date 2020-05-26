@@ -21,7 +21,7 @@
       <goods-list :goods="showGoods"/>
     </scroll>
     <back-top @click.native="backClick" v-show="isShowBackTop"/>
-    <!--组件是是不能直接监听的要加.native修饰-->
+    <!--组件是不能直接监听的要加.native修饰-->
   </div>
 </template>
 
@@ -35,10 +35,12 @@
   import NavBar from "components/common/navbar/NavBar";
   import GoodsList from "components/content/goods/GoodsList";
   import Scroll from "components/common/scroll/Scroll";
-  import BackTop from "components/content/backTop/BackTop";
+
 
   import { getHomeMulidata,getHomeGoods } from "network/home";
   import {debounce} from "common/utils";
+  import {BACKTOP_DISTANCE,POP,NEW,SELL} from "common/const"
+  import {backTopMixin} from "common/mixin";
 
   export default {
     name: "Home",
@@ -50,8 +52,8 @@
       NavBar,
       GoodsList,
       Scroll,
-      BackTop
     },
+    mixins:[backTopMixin],
     data(){
       return {
         banners:[],
@@ -61,8 +63,7 @@
           'new':{page:0,list:[]},
           'sell':{page:0,list:[]}
         },
-        currentType:'pop',
-        isShowBackTop:false,
+        currentType:POP,
         tabOffsetTop:0,
         isTabFixed:false,
         saveY:0
@@ -84,9 +85,9 @@
     created() {
       this.getHomeMulidata();
       //请求商品数据
-      this.getHomeGoods('pop');
-      this.getHomeGoods('new');
-      this.getHomeGoods('sell');
+      this.getHomeGoods(POP);
+      this.getHomeGoods(NEW);
+      this.getHomeGoods(SELL);
     },
 
     mounted() {
@@ -107,25 +108,21 @@
       tabClick(index){
         switch (index) {
           case 0:
-            this.currentType = 'pop'
+            this.currentType = POP
             break
           case 1:
-            this.currentType = 'new'
+            this.currentType = NEW
             break
           case 2:
-            this.currentType = 'sell'
+            this.currentType = SELL
             break
         }
         this.$refs.tabControl1.currentIndex = index
         this.$refs.tabControl2.currentIndex = index
       },
-      backClick(){
-        this.$refs.scroll.scrollTo(0,0,500);
-      //  500毫秒回到顶部
-      },
       contentScroll(position){
         //1判断BackTop是否显示
-        this.isShowBackTop = (-position.y) > 1000;
+        this.isShowBackTop = (-position.y) > BACKTOP_DISTANCE;
       // 决定tabControl 是否吸顶
         this.isTabFixed = (-position.y) > this.tabOffsetTop
       },

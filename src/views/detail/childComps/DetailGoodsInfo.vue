@@ -25,23 +25,23 @@
     data(){
 		  return {
 		    counter:0,
-        imageLength:0
+        // imageLength:0
       }
     },
     methods:{
 		  imgLoad() {
-        if(++this.counter === this.imageLength){
+        // if(++this.counter === this.imageLength){
           this.$emit("imageLoad")
-        }
+        // }
       }
     },
-    watch: {
-      //监听detailInfo属性的变化 因为刚开始它为空
-		  detailInfo() {
-		    this.imageLength = this.detailInfo.detailImage[0].list.length
-                            //获取加载过来的图片的长度
-      }
-    }
+    // watch: {
+    //   //监听detailInfo属性的变化 因为刚开始它为空
+		//   detailInfo() {
+		//     this.imageLength = this.detailInfo.detailImage[0].list.length
+    //                         //获取加载过来的图片的长度
+    //   }
+    // }
 	}
 </script>
 

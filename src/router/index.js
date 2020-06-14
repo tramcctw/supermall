@@ -5,7 +5,15 @@ const Home = () => import('../views/home/Home')
 const Category = () => import('../views/category/Category')
 const Cart = () => import('../views/cart/Cart')
 const Profile = () => import('../views/profile/Profile')
+const Detail = ()=> import('../views/detail/Detail')
 Vue.use(VueRouter)
+
+
+// 解决两次访问相同路由地址报错
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 const  routes = [
   {
@@ -27,6 +35,10 @@ const  routes = [
   {
     path: '/profile',
     component: Profile
+  },
+  {
+    path:'/detail/:id',   //动态路由
+    component:Detail
   }
 ]
 

@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <keep-alive exclude="Detail">
+      <router-view/>
+<!--      包括里面所有替换的组件都会 keep alive-->
+    </keep-alive>
     <main-tab-bar/>
   </div>
 </template>

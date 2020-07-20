@@ -103,7 +103,6 @@
       // console.log(this.$refs.tabControl.$el.offsetTop);
     },
     methods:{
-
       //事件监听相关方法
       tabClick(index){
         switch (index) {

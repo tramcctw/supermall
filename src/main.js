@@ -18,9 +18,8 @@ FastClick.attach(document.body)
 
 //使用图片懒加载 即图片用到时才加载
 // 安装 然后 导入 use 然后再将img的src改为v-lazy
-Vue.use(VueLazyLoad,{
-  loading:require('./assets/img/common/placeholder.png')  //使用其做背景图
-})
+Vue.use(VueLazyLoad)
+//使用其做背景图
 
 new Vue({
   render: h => h(App),

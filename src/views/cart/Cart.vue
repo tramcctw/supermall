@@ -6,7 +6,7 @@
     </nav-bar>
 
     <!--    商品列表-->
-    <cart-list/>
+    <cart-list class="cart-list"/>
 
     <!-- 底部汇总 -->
     <cart-bottom-bar/>
@@ -48,5 +48,4 @@
     background-color: var(--color-tint);
     color: #fff;
   }
-
 </style>

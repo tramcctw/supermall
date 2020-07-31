@@ -1,14 +1,8 @@
 <template>
-  <div class="nav-bar">
-    <div class="left">
-      <slot name="left"></slot>
-    </div>
-    <div class="center">
-      <slot name="center"></slot>
-    </div>
-    <div class="right">
-      <slot name="right"></slot>
-    </div>
+  <div id="navBar">
+    <div class="item"><slot name="left"></slot></div>
+    <div class="item"><slot name="center"></slot></div>
+    <div class="item"><slot name="right"></slot></div>
   </div>
 </template>
 
@@ -19,25 +13,15 @@
 </script>
 
 <style scoped>
-
-  .nav-bar{
-    display: flex;
+  #navBar{
     height: 44px;
-    line-height: 44px;
-    text-align: center;
-  /*  line-height 必须有内容可以将容器撑起来*/
-    box-shadow: 0 1px 1px rgba(100,100,100,.1);
+    display: flex;
   }
 
-  .left,.right{
-    width: 60px;
-    /*background-color:red;*/
-  }
-
-  .center{
+  .item{
     flex: 1;
-    /*background-color: blue;*/
-  /*  占据中间剩余部分*/
+    text-align: center;
+    line-height: 44px;
+    font-size: 16px;
   }
-
 </style>

@@ -1,8 +1,7 @@
 <template>
-  <div class="feature">
+  <div id="feature">
     <a href="https://act.mogujie.com/zzlx67">
       <img src="~assets/img/home/recommend_bg.jpg" alt="">
-    <!--      import中可以直接使用 src中不能直接使用要加~ -->
     </a>
   </div>
 </template>
@@ -14,8 +13,8 @@
 </script>
 
 <style scoped>
-  .feature img{
-    width: 100%;
+  #feature img{
+    width: 100vw;
+    height: 275px;
   }
-
 </style>

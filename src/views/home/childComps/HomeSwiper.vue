@@ -1,23 +1,22 @@
 <template>
   <div>
-    <Swiper>
-      <SwiperItem v-for="item in banners">
+    <ic-slider class="swiper" :autoplay='2000'>
+      <ic-slider-item v-for="(item,index) in banners" :key="index">
         <a :href="item.link">
-          <img :src="item.image" @load="imageLoad">
-          <!--          加载完成一次 触发事件一次-->
+          <img :src="item.image" alt="" @load="swiperRefresh">
         </a>
-      </SwiperItem>
-    </Swiper>
+      </ic-slider-item>
+    </ic-slider>
   </div>
 </template>
 
 <script>
-  import {Swiper,SwiperItem} from "components/common/swiper/index"
+  import {IcSlider,IcSliderItem} from 'vue-better-slider'
   export default {
     name: "HomeSwiper",
     components:{
-      SwiperItem,
-      Swiper
+      IcSlider,
+      IcSliderItem
     },
     props:{
       banners:{
@@ -33,17 +32,19 @@
       }
     },
     methods:{
-      imageLoad(){
-        if(!this.isLoad){
-          this.$emit('swiperImageLoad')
-          this.isLoad = true
-        }
-
+      swiperRefresh(){
+        this.$emit('swiperRefresh')
       }
     }
   }
 </script>
 
 <style scoped>
+  .swiper{
+    width: 100vw;
+  }
 
+  img{
+    width: 100vw;
+  }
 </style>

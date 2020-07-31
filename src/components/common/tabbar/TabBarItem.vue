@@ -1,41 +1,41 @@
 <template>
-  <!--所有的item都展示同一个图片, 同一个文字-->
-  <div class="tab-bar-item" @click="itemClick">
-    <div v-if="!isActive"><slot name="item-icon"></slot></div>
-    <div v-else><slot name="item-icon-active"></slot></div>
-    <div :style="activeStyle"><slot name="item-text"></slot></div>
+  <div id="tabBarItem" @click="divClick">
+      <div v-if="!isActive">
+        <slot name="img1"></slot>
+      </div>
+      <div v-else>
+        <slot name="img2"></slot>
+      </div>
+    <div :class="{font:true,red:isActive}"><slot name="bottom"></slot></div>
   </div>
 </template>
 
 <script>
   export default {
     name: "TabBarItem",
-    props: {
-      path: String,
-      activeColor: {
-        type: String,
-        default: 'red'
+    props:{
+      path:{
+        type:String,
+        default(){
+          return ""
+        }
       }
     },
-    data() {
+    data(){
       return {
-        // isActive: true
+
       }
     },
-    computed: {
-      isActive() {
-        // /home -> item1(/home) = true
-        // /home -> item1(/category) = false
-        // /home -> item1(/cart) = true
-        // /home -> item1(/profile) = true
+    computed:{
+      isActive(){
         return this.$route.path.indexOf(this.path) !== -1
-      },
-      activeStyle() {
-        return this.isActive ? {color: this.activeColor} : {}
       }
     },
-    methods: {
-      itemClick() {
+    methods:{
+      divClick(){
+        if(this.isActive){
+          return
+        }
         this.$router.push(this.path)
       }
     }
@@ -43,18 +43,17 @@
 </script>
 
 <style scoped>
-  .tab-bar-item {
-    flex: 1;
-    text-align: center;
-    height: 49px;
-    font-size: 14px;
+  #tabBarItem img{
+    width: 25px;
   }
 
-  .tab-bar-item img {
-    width: 24px;
-    height: 24px;
-    margin-top: 3px;
-    vertical-align: middle;
-    margin-bottom: 2px;
+  .red{
+    color: red;
+  }
+
+  #tabBarItem .font{
+    position: relative;
+    font-size: 14px;
+    top: -5px;
   }
 </style>

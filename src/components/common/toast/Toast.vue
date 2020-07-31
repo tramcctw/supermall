@@ -1,35 +1,26 @@
 <template>
-  <div  v-show="isShow" class="toast">
-    <div>{{message}}</div>
+  <div id="toast" v-show="isShow">
+    <div>{{msg}}</div>
   </div>
 </template>
 
 <script>
   export default {
     name: "Toast",
-    // props:{
-    //   message: {
-    //     type: String,
-    //     default: ''
-    //   },
-    //   show:{
-    //     type:Boolean,
-    //     default: false
-    //   }
-    // },
     data(){
       return {
-        message:'',
+        msg:'',
         isShow:false
       }
     },
     methods:{
-      show(message="默认文字",duration=1500){
-        this.message = message
+      show(msg='默认',duration=2000){
+        console.log('ok');
+        this.msg = msg
         this.isShow = true
         setTimeout(()=>{
           this.isShow = false
-          this.message = ''
+          this.msg = ''
         },duration)
       }
     }
@@ -37,15 +28,16 @@
 </script>
 
 <style scoped>
-  .toast{
+  #toast{
     position: fixed;
+    z-index: 9;
     top: 50%;
     left: 50%;
-    padding: 8px 10px;
-    color: #fff;
     transform: translate(-50%,-50%);
-    background-color: rgba(0,0,0,.6);
-    z-index: 999;
-    border-radius:20px;
+    background-color: #000;
+    opacity: .8;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 10px;
   }
 </style>

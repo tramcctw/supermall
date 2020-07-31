@@ -1,54 +1,44 @@
 <template>
-  <div id="myCategoryItem">
-    <scroll :probe-type="3" class="scroll" ref="scroll">
-      <div class="categoryItem">
-        <goods-item class="content"
-                    v-for="(item,index) in categorySubList"
-                    :item="item" @imageLoad="imageLoad"/>
+  <div id="categoryItem">
+      <div class="goods">
+        <div class="item" v-for="item in categorySubList">
+          <img :src="item.image" alt="">
+          <div>{{item.title}}</div>
+        </div>
       </div>
-    </scroll>
   </div>
-
 </template>
 
 <script>
-  import GoodsItem from "./GoodsItem";
-  import Scroll from "../../../components/common/scroll/Scroll";
   export default {
     name: "CategoryItem",
-    components:{
-      GoodsItem,
-      Scroll
-    },
     props:{
       categorySubList:{
+        type:Array,
         default(){
           return []
         }
       }
     },
-    methods:{
-      imageLoad(){
-        this.$refs.scroll.refresh();
-      }
-    }
   }
 </script>
 
 <style scoped>
-  #myCategoryItem{
-    height: calc(100vh - 44px - 49px);
+  img{
+    width: 110px;
   }
-  .scroll{
-    height: calc(100vh - 44px - 49px);
-    overflow: hidden;
-  }
-
-  .categoryItem{
+  .goods{
     display: flex;
     flex-wrap: wrap;
+    overflow: auto;
+    height: calc(100vh - 44px - 49px);
   }
-  .categoryItem .content{
-    margin-left: 10px;
+  .item{
+    margin-left: 12px;
   }
+
+  .item div{
+    text-align: center;
+  }
+
 </style>

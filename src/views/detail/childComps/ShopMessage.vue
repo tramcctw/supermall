@@ -36,29 +36,31 @@
 </template>
 
 <script>
-	export default {
-		name: "DetailShopInfo",
-    props: {
-		  shop: {
-		    type: Object,
+
+  export default {
+    name: "ShopMessage",
+    props:{
+      shop:{
+        type:Object,
         default(){
-		      return {}
+          return {}
         }
       }
     },
-    filters: {
-      sellCountFilter: function (value) {
-        if (value < 10000) return value;
-        return (value/10000).toFixed(1) + '万'
+    filters:{
+      sellCountFilter(value){
+        if(value < 10000) return value
+        return (value/10000).toFixed(1) + "万"
       }
     }
-	}
+  }
 </script>
 
 <style scoped>
   .shop-info {
     padding: 25px 8px;
     border-bottom: 5px solid #f2f5f8;
+    background-color: #fff;
   }
 
   .shop-top {

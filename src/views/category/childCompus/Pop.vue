@@ -1,19 +1,18 @@
 <template>
   <div id="pop">
-      <scroll class="content" :probe-type="3">
-        <ul>
-          <li v-for="(item ,index) in categoryList"
-              :key="item.title"
-              :class="{active:index===currentIndex}"
-              @click="liClick(index,item)">{{item.title}}</li>
-        </ul>
-      </scroll>
+    <scroll class="content" :probe-type="3">
+      <ul>
+        <li v-for="(item ,index) in categoryList"
+            :key="item.title"
+            :class="{active:index===currentIndex}"
+            @click="liClick(index,item)">{{item.title}}</li>
+      </ul>
+    </scroll>
   </div>
 </template>
 
 <script>
   import Scroll from "components/common/scroll/Scroll";
-  import {getSubCategory} from "../../../network/category";
 
   export default {
     name: "Pop",
@@ -33,9 +32,6 @@
         maitKey:3627,
       }
     },
-    created() {
-
-    },
     methods:{
       liClick(index,item){
         this.currentIndex = index
@@ -47,14 +43,8 @@
 </script>
 
 <style scoped>
-  #pop{
-    height: calc(100vh - 44px - 49px);
-  }
-  #pop ul{
-    height: calc(100% - 49px - 44px);
-    overflow: auto;
-    width: 112px;
-  }
+
+
   ul li{
     height:44px;
     width: 112px;
@@ -75,14 +65,16 @@
     display: block;
     position: absolute;
     width: 3px;
-    top: 0px;
+    top: 0;
     height: 44px;
     background-color: var(--color-tint);
   }
 
   .content{
     overflow: hidden;
-    height: calc(100vh - 49px - 44px);
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
   }
 
 </style>

@@ -1,17 +1,15 @@
 <template>
   <div id="category">
     <nav-bar class="nav-bar"><div slot="center">商品分类</div></nav-bar>
-    <div class="myCategory">
-      <Pop :category-list="categoryList" @itemClick="itemClick"/>
-      <category-item class="category-item" :category-sub-list="categorySubList"/>
-    </div>
+    <pop :category-list="categoryList" @itemClick="itemClick"/>
+    <category-item class="category-item" :category-sub-list="categorySubList"/>
   </div>
 </template>
 
 <script>
-  import NavBar from "../../components/common/navbar/NavBar";
+  import NavBar from "components/common/navbar/NavBar";
   import Pop from "./childCompus/Pop"
-  import {getCategory, getSubCategory} from "../../network/category";
+  import {getCategory, getSubCategory} from "network/category";
   import CategoryItem from "./childCompus/CategoryItem";
 
   export default {
@@ -36,15 +34,17 @@
 
       getSubCategory(this.maitKey).then(res=>{
         this.categorySubList = res.data.list
-        console.log(this.categorySubList)
+        // console.log(this.categorySubList)
       })
     },
     methods:{
       itemClick(maitKey){
         this.maitKey = maitKey
-        console.log(this.maitKey)
+        // console.log(this.maitKey)
         getSubCategory(this.maitKey).then(res=>{
-          this.categorySubList = res.data.list
+          setTimeout(()=>{
+            this.categorySubList = res.data.list
+          },200)
         })
       }
     }
@@ -53,15 +53,10 @@
 
 <style scoped>
 
-  /*.content{*/
-  /*  height: 200px;*/
-  /*  overflow: scroll;*/
-  /*  background-color: red;*/
-  /*!*  原生的局部滚动会非常的卡顿在移动端*!*/
-  /*}*/
 
   #category{
-    height: calc(100vh - 49px);
+    position: relative;
+    height: 100vh;
   }
 
   #category .nav-bar{
@@ -69,10 +64,8 @@
     color: #fff;
   }
 
-  .myCategory{
-    display: flex;
-    height: calc(100vh - 44px - 49px);
+  .category-item{
+    margin-left: 112px;
   }
-
 
 </style>

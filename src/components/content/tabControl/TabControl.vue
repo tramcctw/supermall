@@ -1,64 +1,74 @@
 <template>
-  <div class="tab-control">
-    <!--只是文字不一样时，没有必要使用插槽    -->
+  <div id="tabControl">
     <div v-for="(item,index) in titles"
-         class="tab-control-item" :class="{active:index === currentIndex}" @click="itemClick(index)">
-      <span>{{item}}</span>
-    </div>
-
+         :class="{active:index === changeIndex,item:true}"
+         @click="btnClick(index)">{{item}}</div>
   </div>
 </template>
 
 <script>
   export default {
     name: "TabControl",
+    data(){
+      return {
+        currIndex:0
+      }
+    },
     props:{
       titles:{
         type:Array,
         default(){
-          return [];
+          return []
         }
-      }
+      },
+      currentIndex:{
+        type:Number,
+        default:0
+      },
     },
-    data(){
-      return {
-        currentIndex:0
+    computed:{
+      changeIndex(){
+        this.currIndex = this.currentIndex
+        return this.currIndex
       }
     },
     methods:{
-      itemClick(index){
-        this.currentIndex = index;
-        this.$emit('tabClick',index)
-      }
+      btnClick(index){
+        // console.log(index,this.titles)
+        this.currIndex = index
+        this.$emit('btnClick',index)
+      },
     }
   }
 </script>
 
 <style scoped>
-
-  .tab-control{
+  #tabControl{
+    height: 40px;
     display: flex;
     text-align: center;
-    font-size: 15px;
-    height: 40px;
     line-height: 40px;
-    background-color: #fff;
+    background-color:#fff;
+    margin-top: -5px;
   }
-
-  .tab-control-item{
+  
+  .item{
     flex: 1;
+    position: relative;
   }
 
-  .tab-control-item span{
-      padding: 5px;
+  .active::after{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 40px;
+    height: 4px;
+    background-color: var(--color-tint);
+    top: 30px;
+    left: 43px;
   }
-
   .active{
-    color:var(--color-high-text);
-  }
-
-  .active span{
-    border-bottom: 3px solid var(--color-tint);
+    color:var(--color-tint)
   }
 
 </style>

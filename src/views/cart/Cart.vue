@@ -1,51 +1,54 @@
-
 <template>
-  <div class="cart">
-    <nav-bar class="nav-bar">
-      <div slot="center">购物车({{length}})</div>
-    </nav-bar>
-
-    <!--    商品列表-->
-    <cart-list class="cart-list"/>
-
-    <!-- 底部汇总 -->
-    <cart-bottom-bar/>
+  <div id="cart">
+    <nav-bar class="navBar"><div slot="center">购物车<span>{{getCount}}</span></div></nav-bar>
+    <scroll class="content">
+      <goods-list/>
+    </scroll>
+    <compute/>
   </div>
 </template>
 
 <script>
   import NavBar from "components/common/navbar/NavBar";
-  import CartList from "./childComps/CartList";
-  import CartBottomBar from "./childComps/CartBottomBar";
-
-  import {mapGetters} from 'vuex'
-  //将vuex里面的辅助函数 将store里面的getter映射到局部的计算属性
+  import Compute from "./childComps/Compute";
+  import GoodsList from "./childComps/GoodsList";
+  import Scroll from "components/common/scroll/Scroll";
   export default {
     name: "Cart",
+    data(){
+      return {
+        count:null
+      }
+    },
     components:{
       NavBar,
-      CartList,
-      CartBottomBar
+      Compute,
+      GoodsList,
+      Scroll
+    },
+    activated() {
+      this.count = this.$store.getters.getCartList.length
     },
     computed:{
-      // cartLength() {
-      //   return this.$store.getters.cartLength
-      // }
-      // ...mapGetters(['cartLength'])   //导入相应的方法作为计算属性直接使用
-      ...mapGetters({
-        length:'cartLength'             //导入相应的方法做一层映射
-      })
+      getCount(){
+        return '(' + this.count + ')'
+      }
     }
   }
 </script>
 
 <style scoped>
-
-  .cart{
-    height: 100vh;
-  }
-  .nav-bar{
+  #cart .navBar{
     background-color: var(--color-tint);
     color: #fff;
+  }
+
+  .content{
+    position: fixed;
+    top: 44px;
+    bottom: 89px;
+    right: 0;
+    left: 0;
+    overflow: hidden;
   }
 </style>

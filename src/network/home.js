@@ -1,9 +1,7 @@
 import {request} from "./request";
 
-export function getHomeMulidata() {
-  return request({
-    url:'/home/multidata'
-  })
+export function getHomeBanner() {
+  return request('/home/multidata')
 }
 
 export function getHomeGoods(type,page) {
@@ -11,7 +9,7 @@ export function getHomeGoods(type,page) {
     url:'/home/data',
     params:{
       type,
-      page,
+      page
     }
   })
 }

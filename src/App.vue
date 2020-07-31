@@ -2,17 +2,15 @@
   <div id="app">
     <keep-alive exclude="Detail">
       <router-view/>
-<!--      包括里面所有替换的组件都会 keep alive-->
     </keep-alive>
-    <main-tab-bar/>
+    <MainTabBar/>
   </div>
 </template>
 
 <script>
-import MainTabBar from "components/content/mainTabbar/MainTabBar";
-
+import MainTabBar from "./components/content/maintabbar/MainTabBar";
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     MainTabBar
   }

@@ -1,22 +1,23 @@
 <template>
-    <swiper class="detail-swiper">
-      <swiper-item v-for="item in topImages">
-        <img :src="item">
-      </swiper-item>
-    </swiper>
+  <div>
+    <ic-slider class="swiper" :autoplay='2000'>
+      <ic-slider-item v-for="(item,index) in banners">
+          <img :src="item" alt="">
+      </ic-slider-item>
+    </ic-slider>
+  </div>
 </template>
 
 <script>
-  import {Swiper,SwiperItem} from 'components/common/swiper'
-
+  import {IcSlider,IcSliderItem} from 'vue-better-slider'
   export default {
     name: "DetailSwiper",
     components:{
-      Swiper,
-      SwiperItem
+      IcSlider,
+      IcSliderItem
     },
     props:{
-      topImages:{
+      banners:{
         type:Array,
         default(){
           return []
@@ -27,8 +28,8 @@
 </script>
 
 <style scoped>
-  .detail-swiper{
+  .swiper{
+    margin-top: 44px;
     height: 300px;
-    overflow: hidden;
   }
 </style>

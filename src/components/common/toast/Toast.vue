@@ -14,8 +14,7 @@
       }
     },
     methods:{
-      show(msg='默认',duration=2000){
-        console.log('ok');
+      show(msg='默认',duration=1000){
         this.msg = msg
         this.isShow = true
         setTimeout(()=>{

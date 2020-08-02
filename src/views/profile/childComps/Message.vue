@@ -53,6 +53,6 @@
 
   .item .arrow-right{
     width: 30px;
-    margin-left: 80px;
+    margin-left: 20vw;
   }
 </style>

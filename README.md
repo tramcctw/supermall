@@ -1,1 +1,1 @@
-supermall1
+supermall
